@@ -8,6 +8,7 @@
 #include <QKeyEvent>
 #include <QTimer>
 #include <QPixmap>
+#include <pared.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

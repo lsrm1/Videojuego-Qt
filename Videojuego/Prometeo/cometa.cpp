@@ -4,10 +4,10 @@ Cometa::Cometa(int x, int y)
 {
     this-> posx = x;
     this-> posy = y;
-    veloci = 7;
+    velocidad = 7;
     ancho = 489;
     alto = 78;
-    setPos(posx,posy);
+
 }
 
 QRectF Cometa::boundingRect() const
@@ -27,7 +27,7 @@ void Cometa::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
 
 void Cometa::MoveCometa()
 {
-    posx = posx - veloci;
+    posx = posx - velocidad;
     setPos(posx, posy);
 }
 

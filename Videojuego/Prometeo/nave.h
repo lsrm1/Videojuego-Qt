@@ -1,25 +1,17 @@
 #ifndef NAVE_H
 #define NAVE_H
 
-#include <QGraphicsItem>
-#include <QPixmap>
-#include <QPainter>
-#include <QObject>
+#include <elemento.h>
 
-
-class Nave: public QObject, public QGraphicsItem
+class Nave: public elemento
 {
-public:
-    int posx,posy,velocidad;
-    float ancho,alto;
-
-    QPixmap *pixmap;
+    QPixmap pixmap;
+    //QTimer *timer;
 
 public:
-    Nave(QObject *parent = nullptr);
+    Nave();
     QRectF boundingRect() const ;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
-
     void MoveUp();
     void MoveDown();
     void MoveRight();

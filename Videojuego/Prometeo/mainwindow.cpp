@@ -18,8 +18,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     navex = new Nave;
     escena->addItem(navex);
-    navex->setFlag(QGraphicsItem::ItemIsFocusable);
-    navex->setFocus();
+    //navex->setFlag(QGraphicsItem::ItemIsFocusable);
+    //navex->setFocus();
 
     Cometas.push_back(new Cometa (1000,20));
     escena->addItem(Cometas.back());
@@ -62,9 +62,9 @@ void MainWindow::movimiento()
 
    navex->MoveRight();
 
-    //if(EvaluarColision())
-    // timeanima->stop();
-    //timeghost->stop();
+    if(EvaluarColision()){
+     timeanima->stop();
+    timeghost->stop();}
 }
 
 void MainWindow::Movcometa()

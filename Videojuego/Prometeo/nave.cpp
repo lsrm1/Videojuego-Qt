@@ -1,26 +1,25 @@
 #include "nave.h"
 
-Nave::Nave(QObject *parent)
+Nave::Nave()
 {
 
-    posy = 100;
+    posy = 200;
     posx = 350;
     velocidad = 8;
     ancho = 400;
     alto = 124;
-    setPos(posx,posy);
 
 }
 
-QRectF Nave::boundingRect() const{
-    return QRectF(-ancho/2,-alto/2,ancho,alto);
+QRectF Nave::boundingRect() const
+{
+     return QRectF(-ancho/2,-alto/2,ancho,alto);
 }
 
 void Nave::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     option = nullptr;
     widget = nullptr;
-    QPixmap pixmap;
     pixmap.load(":/Imagenes/nave.png");
     painter->drawPixmap(boundingRect(),pixmap,pixmap.rect());
 }
