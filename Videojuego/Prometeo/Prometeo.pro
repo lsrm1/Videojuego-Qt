@@ -9,7 +9,6 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    ../../Pacman/pared.cpp \
     cometa.cpp \
     elemento.cpp \
     main.cpp \
@@ -17,7 +16,6 @@ SOURCES += \
     nave.cpp
 
 HEADERS += \
-    ../../Pacman/pared.h \
     cometa.h \
     elemento.h \
     mainwindow.h \

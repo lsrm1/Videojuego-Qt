@@ -3,5 +3,7 @@
         <file>Imagenes/nave.png</file>
         <file>Imagenes/meteoro.png</file>
         <file>Imagenes/aster.png</file>
+        <file>Imagenes/mapa.png</file>
+        <file>Imagenes/inicio.png</file>
     </qresource>
 </RCC>

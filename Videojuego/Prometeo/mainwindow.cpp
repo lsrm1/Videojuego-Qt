@@ -6,32 +6,49 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+
+
     escena = new QGraphicsScene();
     ui->graphicsView->setScene(escena);
-    escena->setSceneRect(0,0,10000,498);
+    escena->setSceneRect(0,0,10000,700);
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    escena->setBackgroundBrush(Qt::black);
+    ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    setMouseTracking(true);
+    ui->centralwidget->setAttribute(Qt::WA_TransparentForMouseEvents);
+
+
+    QPixmap fondo;
+    fondo.load(":/Imagenes/mapa.png");
+    ui->graphicsView->setBackgroundBrush(QBrush(fondo));
 
     timeanima = new QTimer();
     connect(timeanima,SIGNAL(timeout()),this,SLOT(movimiento()));
     timeanima->start(30);
 
+
     navex = new Nave;
     escena->addItem(navex);
-    //navex->setFlag(QGraphicsItem::ItemIsFocusable);
-    //navex->setFocus();
 
-    Cometas.push_back(new Cometa (1000,20));
+    Cometas.push_back(new Cometa (1000,20,1));
     escena->addItem(Cometas.back());
-    Cometas.push_back(new Cometa(2000,150));
+    Cometas.push_back(new Cometa(2000,150,1));
     escena->addItem(Cometas.back());
-    Cometas.push_back(new Cometa(3000,200));
+    Cometas.push_back(new Cometa(3000,200,1));
     escena->addItem(Cometas.back());
-    Cometas.push_back(new Cometa(4000,250));
+    Cometas.push_back(new Cometa(4000,250,1));
     escena->addItem(Cometas.back());
-    Cometas.push_back(new Cometa(50000,350));
+    Cometas.push_back(new Cometa(5000,350,1));
     escena->addItem(Cometas.back());
-    Cometas.push_back(new Cometa(6000,400));
+    Cometas.push_back(new Cometa(6000,400,1));
+    escena->addItem(Cometas.back());
+
+    Cometas.push_back(new Cometa(6000,100,2));
+    escena->addItem(Cometas.back());
+    Cometas.push_back(new Cometa(3500,500,2));
+    escena->addItem(Cometas.back());
+    Cometas.push_back(new Cometa(1500,400,2));
     escena->addItem(Cometas.back());
 
     timeghost = new QTimer();
@@ -46,26 +63,20 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::keyPressEvent(QKeyEvent *evento)
-{
-    if(evento->key() == Qt::Key_H)
-        navex->MoveUp();
-    if(evento->key() == Qt::Key_N)
-        navex->MoveDown();
-}
-
 void MainWindow::movimiento()
 {
-
-    ui->graphicsView->centerOn(navex->posx+300,navex->posy+100);
+    ui->graphicsView->centerOn(navex->posx+300,navex->posy);
     ui->graphicsView->setFixedSize(width(),height());
+    navex->posx = navex->posx+navex->velocidad;
+    navex->setPos(navex->posx,navex->posy);
 
-   navex->MoveRight();
-
-    if(EvaluarColision()){
-     timeanima->stop();
-    timeghost->stop();}
 }
+
+
+//    if(EvaluarColision()){
+//     timeanima->stop();
+//    timeghost->stop();}
+
 
 void MainWindow::Movcometa()
 {
@@ -89,3 +100,11 @@ bool MainWindow::EvaluarColision()
     return false;
 
 }
+
+void MainWindow::mouseMoveEvent(QMouseEvent *event)
+{
+    QPoint po = event->pos();
+    navex->posy=po.y();
+
+}
+

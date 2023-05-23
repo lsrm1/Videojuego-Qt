@@ -5,8 +5,10 @@
 #include <QPixmap>
 #include <QPainter>
 #include <QTimer>
+#include <QObject>
 
-class elemento :public QGraphicsItem{
+class elemento :public QGraphicsItem,public QObject
+{
 
     public:
         int posx,posy,velocidad;

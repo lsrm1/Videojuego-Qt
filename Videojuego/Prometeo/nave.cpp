@@ -6,8 +6,8 @@ Nave::Nave()
     posy = 200;
     posx = 350;
     velocidad = 8;
-    ancho = 400;
-    alto = 124;
+    ancho = 99;
+    alto = 81;
 
 }
 
@@ -23,20 +23,3 @@ void Nave::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     pixmap.load(":/Imagenes/nave.png");
     painter->drawPixmap(boundingRect(),pixmap,pixmap.rect());
 }
-
-void Nave::MoveUp(){
-    posy=posy-8;
-    setPos(posx, posy);
-}
-
-void Nave::MoveDown(){
-    posy = posy + 8;
-    setPos(posx, posy);
-}
-
-void Nave::MoveRight()
-{
-    posx = posx +velocidad;
-    setPos(posx, posy);
-}
-

@@ -8,7 +8,7 @@
 #include <QKeyEvent>
 #include <QTimer>
 #include <QPixmap>
-#include <pared.h>
+#include <QMouseEvent>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -32,16 +32,18 @@ private:
 
     Ui::MainWindow *ui;
     QGraphicsScene *escena;
+    QGraphicsScene *inicio;
+
     Nave *navex;
 
     QString tecla;
     QList<Cometa*>Cometas;
 
-    void keyPressEvent(QKeyEvent *evento);
     QTimer *timeanima;
     QTimer *timeghost;
 
     bool EvaluarColision();
+    void mouseMoveEvent(QMouseEvent *event);
 
 };
 #endif // MAINWINDOW_H

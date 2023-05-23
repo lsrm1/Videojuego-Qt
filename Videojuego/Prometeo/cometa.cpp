@@ -1,18 +1,28 @@
 #include "cometa.h"
 
-Cometa::Cometa(int x, int y)
+Cometa::Cometa(int x, int y,int _tipo)
 {
-    this-> posx = x;
-    this-> posy = y;
-    velocidad = 7;
-    ancho = 489;
-    alto = 78;
+    posx = x;
+    posy = y;
+    tipo = _tipo;
+
+    if (tipo == 1){
+        ancho = 150;
+        alto = 24;
+        velocidad = 7;
+    }
+
+    if (tipo == 2){
+        ancho = 60;
+        alto = 53;
+        velocidad = 0;
+    }
 
 }
 
 QRectF Cometa::boundingRect() const
 {
-     return QRectF(-ancho/2,-alto/2,ancho,alto);
+    return QRectF(-ancho/2,-alto/2,ancho,alto);
 }
 
 void Cometa::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -21,8 +31,17 @@ void Cometa::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     widget = nullptr;
 
     QPixmap pixmap;
+
+    if (tipo == 1)
     pixmap.load(":/Imagenes/meteoro.png");
+
+
+    if(tipo == 2)
+        pixmap.load(":/Imagenes/aster.png");
+
     painter->drawPixmap(boundingRect(),pixmap,pixmap.rect());
+
+
 }
 
 void Cometa::MoveCometa()
