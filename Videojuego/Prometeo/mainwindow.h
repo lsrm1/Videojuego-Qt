@@ -3,12 +3,16 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
-#include "nave.h"
-#include "cometa.h"
 #include <QKeyEvent>
 #include <QTimer>
 #include <QPixmap>
 #include <QMouseEvent>
+#include <QList>
+#include "nave.h"
+#include "cometa.h"
+#include "cuerpo.h"
+#include "dinamico.h"
+#include "estatico.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -27,23 +31,53 @@ public slots:
 
     void movimiento();
     void Movcometa();
+    void Actualizar();
+    void Movobstaculo();
+    void Movilineal();
+
+private slots:
+    void on_play_clicked();
 
 private:
 
     Ui::MainWindow *ui;
+
     QGraphicsScene *escena;
     QGraphicsScene *inicio;
+    QGraphicsScene *scene;
 
     Nave *navex;
+    cuerpo *cuerp;
 
-    QString tecla;
-    QList<Cometa*>Cometas;
-
+    QTimer *timer;
+    QTimer *time;
+    QTimer *line;
     QTimer *timeanima;
     QTimer *timeghost;
 
+    QString direccion;
+
+    QList<Cometa*>Cometas;
+    QList<estatico*> eneria;
+    QList<dinamico*> obstaculo;
+    QList<dinamico*> lineal;
+
+
+
+    float nux;
+    float nuy;
+
     bool EvaluarColision();
-    void mouseMoveEvent(QMouseEvent *event);
+    void jugar();
+    void agujero();
+
+
+    void mouseMoveEvent(QMouseEvent *event);    
+    void keyPressEvent(QKeyEvent *evento);
+    bool EvaluarColision1();
+    bool EvaluarColision2();
+    void vista ();
+
 
 };
 #endif // MAINWINDOW_H

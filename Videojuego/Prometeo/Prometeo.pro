@@ -10,14 +10,20 @@ CONFIG += c++17
 
 SOURCES += \
     cometa.cpp \
+    cuerpo.cpp \
+    dinamico.cpp \
     elemento.cpp \
+    estatico.cpp \
     main.cpp \
     mainwindow.cpp \
     nave.cpp
 
 HEADERS += \
     cometa.h \
+    cuerpo.h \
+    dinamico.h \
     elemento.h \
+    estatico.h \
     mainwindow.h \
     nave.h
 

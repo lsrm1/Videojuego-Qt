@@ -14,6 +14,7 @@
 #include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QWidget>
 
@@ -24,6 +25,7 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QGraphicsView *graphicsView;
+    QPushButton *play;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -31,7 +33,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(10010, 710);
+        MainWindow->resize(10010, 3060);
         QPalette palette;
         QBrush brush(QColor(0, 0, 0, 255));
         brush.setStyle(Qt::SolidPattern);
@@ -45,7 +47,14 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         graphicsView = new QGraphicsView(centralwidget);
         graphicsView->setObjectName(QString::fromUtf8("graphicsView"));
-        graphicsView->setGeometry(QRect(0, 0, 10005, 705));
+        graphicsView->setGeometry(QRect(0, 0, 10005, 3050));
+        play = new QPushButton(centralwidget);
+        play->setObjectName(QString::fromUtf8("play"));
+        play->setGeometry(QRect(330, 164, 141, 61));
+        QFont font;
+        font.setPointSize(21);
+        font.setBold(true);
+        play->setFont(font);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -63,6 +72,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
+        play->setText(QCoreApplication::translate("MainWindow", "Play", nullptr));
     } // retranslateUi
 
 };
