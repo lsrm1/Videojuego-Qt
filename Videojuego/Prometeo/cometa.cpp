@@ -9,13 +9,13 @@ Cometa::Cometa(int x, int y,int _tipo)
     if (tipo == 1){
         ancho = 150;
         alto = 24;
-        velocidad = 7;
+        velocidad = 10;
     }
 
     if (tipo == 2){
         ancho = 60;
         alto = 53;
-        velocidad = 0;
+        velocidad = 5;
     }
 
 }

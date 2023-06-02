@@ -8,11 +8,14 @@
 #include <QPixmap>
 #include <QMouseEvent>
 #include <QList>
+#include <fstream>
 #include "nave.h"
 #include "cometa.h"
 #include "cuerpo.h"
 #include "dinamico.h"
 #include "estatico.h"
+
+using namespace std;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -27,6 +30,7 @@ public:
     ~MainWindow();
 
 
+
 public slots:
 
     void movimiento();
@@ -34,6 +38,7 @@ public slots:
     void Actualizar();
     void Movobstaculo();
     void Movilineal();
+
 
 private slots:
     void on_play_clicked();
@@ -55,6 +60,7 @@ private:
     QTimer *timeanima;
     QTimer *timeghost;
 
+
     QString direccion;
 
     QList<Cometa*>Cometas;
@@ -62,21 +68,20 @@ private:
     QList<dinamico*> obstaculo;
     QList<dinamico*> lineal;
 
-
-
     float nux;
     float nuy;
 
-    bool EvaluarColision();
-    void jugar();
+    bool Colisioncometa();
     void agujero();
-
+    void jugar();
 
     void mouseMoveEvent(QMouseEvent *event);    
     void keyPressEvent(QKeyEvent *evento);
     bool EvaluarColision1();
     bool EvaluarColision2();
     void vista ();
+    void Crearcometas();
+
 
 
 };

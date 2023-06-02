@@ -5,5 +5,11 @@
         <file>Imagenes/aster.png</file>
         <file>Imagenes/mapa.png</file>
         <file>Imagenes/inicio.png</file>
+        <file>Imagenes/obs.png</file>
+        <file>Imagenes/estatico.png</file>
+        <file>Imagenes/estatic.png</file>
+        <file>Imagenes/eneria.png</file>
+        <file>Imagenes/cuerpo.png</file>
+        <file>Imagenes/colision.png</file>
     </qresource>
 </RCC>

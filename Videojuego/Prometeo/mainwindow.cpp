@@ -13,7 +13,15 @@ MainWindow::MainWindow(QWidget *parent)
     inifondo.load(":/Imagenes/inicio.png");
     inicio->setBackgroundBrush(QBrush(inifondo));
     ui->graphicsView->setScene(inicio);
+
 }
+
+void MainWindow::on_play_clicked()
+{
+    ui->play->setVisible(false);
+    jugar();
+}
+
 
 void MainWindow::jugar(){
 
@@ -31,121 +39,19 @@ void MainWindow::jugar(){
     fondo.load(":/Imagenes/mapa.png");
     escena->setBackgroundBrush(QBrush(fondo));
 
-    timeanima = new QTimer();
-    connect(timeanima,SIGNAL(timeout()),this,SLOT(movimiento()));
-    timeanima->start(30);
-
-
     navex = new Nave;
     escena->addItem(navex);
 
-    Cometas.push_back(new Cometa (1000,20,1));
-    escena->addItem(Cometas.back());
-    Cometas.push_back(new Cometa(2000,150,1));
-    escena->addItem(Cometas.back());
-    Cometas.push_back(new Cometa(3000,200,1));
-    escena->addItem(Cometas.back());
-    Cometas.push_back(new Cometa(4000,250,1));
-    escena->addItem(Cometas.back());
-    Cometas.push_back(new Cometa(5000,350,1));
-    escena->addItem(Cometas.back());
-    Cometas.push_back(new Cometa(6000,400,1));
-    escena->addItem(Cometas.back());
-
-    Cometas.push_back(new Cometa(6000,100,2));
-    escena->addItem(Cometas.back());
-    Cometas.push_back(new Cometa(3500,500,2));
-    escena->addItem(Cometas.back());
-    Cometas.push_back(new Cometa(1500,400,2));
-    escena->addItem(Cometas.back());
+    Crearcometas();
+    timeanima = new QTimer();
+    connect(timeanima,SIGNAL(timeout()),this,SLOT(movimiento()));
+    timeanima->start(30);
 
     timeghost = new QTimer();
     connect(timeghost,SIGNAL(timeout()),this,SLOT(Movcometa()));
     timeghost->start(50);
 
 
-}
-
-void MainWindow::agujero()
-{
-    delete escena;
-    timeanima->stop();
-    timeghost->stop();
-    //delete Cometas;
-
-    scene = new QGraphicsScene(0, 0, 800, 3000);
-    ui->graphicsView->setScene(scene);
-    ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
-    cuerp = new cuerpo(400,2970);
-    scene->addItem(cuerp);
-    scene->setBackgroundBrush(Qt::black);
-
-
-    ui->graphicsView->centerOn(400,cuerp->y);
-    ui->graphicsView->setFixedSize(800,600);
-
-    timer = new QTimer(this);
-    connect(timer,SIGNAL(timeout()), this, SLOT(Actualizar()));
-
-    time = new QTimer(this);
-    connect(time,SIGNAL(timeout()), this, SLOT(Movobstaculo()));
-    time->start(150);
-
-    line = new QTimer(this);
-    connect(line,SIGNAL(timeout()), this, SLOT(Movilineal()));
-    line->start(70);
-
-
-
-    obstaculo .push_back(new dinamico(200,2600,45));
-    scene->addItem(obstaculo.back());
-    obstaculo .push_back(new dinamico(200,2600,135));
-    scene->addItem(obstaculo.back());
-    obstaculo .push_back(new dinamico(200,2600,225));
-    scene->addItem(obstaculo.back());
-
-    obstaculo .push_back(new dinamico(400,2200,45));
-    scene->addItem(obstaculo.back());
-    obstaculo .push_back(new dinamico(400,2200,135));
-    scene->addItem(obstaculo.back());
-    obstaculo .push_back(new dinamico(400,2200,225));
-    scene->addItem(obstaculo.back());
-
-    lineal.push_back(new dinamico(20,1850));
-    scene->addItem(lineal.back());
-    lineal.push_back(new dinamico(800,1950));
-    scene->addItem(lineal.back());
-
-    lineal.push_back(new dinamico(20,1320));
-    scene->addItem(lineal.back());
-    lineal.push_back(new dinamico(800,1480));
-    scene->addItem(lineal.back());
-
-    eneria.push_back(new estatico(400,2200,1));
-    scene->addItem(eneria.back());
-    eneria.push_back(new estatico(200,2600,1));
-    scene->addItem(eneria.back());
-    eneria.push_back(new estatico(350,1400,1));
-    scene->addItem(eneria.back());
-    eneria.push_back(new estatico(300,1400,2));
-    scene->addItem(eneria.back());
-    eneria.push_back(new estatico(300,1450,2));
-    scene->addItem(eneria.back());
-    eneria.push_back(new estatico(350,1450,2));
-    scene->addItem(eneria.back());
-    eneria.push_back(new estatico(400,1450,2));
-    scene->addItem(eneria.back());
-    eneria.push_back(new estatico(350,1450,2));
-    scene->addItem(eneria.back());
-    eneria.push_back(new estatico(400,1450,2));
-    scene->addItem(eneria.back());
-}
-
-MainWindow::~MainWindow()
-{
-    delete ui;
 }
 
 void MainWindow::movimiento()
@@ -155,41 +61,29 @@ void MainWindow::movimiento()
     navex->posx = navex->posx+navex->velocidad;
     navex->setPos(navex->posx,navex->posy);
 
-    if (navex->posx>9950){
-        agujero();
-
-    }
-
-}
-
-
-//    if(EvaluarColision()){
-//     timeanima->stop();
-//    timeghost->stop();}
-
-
-void MainWindow::Movcometa()
-{
-
-    for ( int i = 0; i < Cometas.size(); i++){
-
-        Cometas[i]->MoveCometa();
-    }
-
-}
-
-//bool MainWindow::EvaluarColision()
-//{
-//    QList<Cometa*>::iterator it;
-
-//    for ( it = Cometas.begin(); it != Cometas.end(); it++){
-
-//        if((*it)->collidesWithItem(navex))
-//            return true;
+//    if(Colisioncometa()){
+//        navex->destruir();
+//        timeanima->stop();
 //    }
-//    return false;
 
-//}
+    if (navex->posx>9350){
+
+        timeanima->stop();
+        timeghost->stop();
+        escena->removeItem(navex);
+        delete navex;
+        delete timeanima;
+        delete timeghost;
+
+        for (int t = 0; t < Cometas.size(); t++)
+               escena->removeItem(Cometas[t]);
+
+        Cometas.clear();
+        delete escena;
+        agujero();
+    }
+
+}
 
 void MainWindow::mouseMoveEvent(QMouseEvent *event)
 {
@@ -198,16 +92,130 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
 
 }
 
-
-void MainWindow::on_play_clicked()
+void MainWindow::Crearcometas() // Recibe un txt con posiciones
 {
-    ui->play->setVisible(false);
-    jugar();
+    ifstream obs;
+    int x, y,z;
+    obs.open("cometa.txt");
+
+    while (obs.good()){
+
+        obs >> x;
+        obs >> y;
+        obs >> z;
+
+        Cometas.push_back(new Cometa(x,y,z));
+        escena->addItem(Cometas.back());
+    }
+    obs.close();
 }
+
+
+bool MainWindow::Colisioncometa()
+{
+    QList<Cometa*>::iterator it;
+
+    for ( it = Cometas.begin(); it != Cometas.end(); it++){
+
+        if((*it)->collidesWithItem(navex))
+            return true;
+    }
+    return false;
+
+}
+
+void MainWindow::Movcometa()
+{
+
+    for ( int h = 0; h < Cometas.size(); h++)
+        Cometas[h]->MoveCometa();
+
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------//
+
+void MainWindow::agujero()
+{
+
+        scene = new QGraphicsScene;
+        ui->graphicsView->setScene(scene);
+        scene->setSceneRect(0, 0, 800, 3000);
+        ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+        cuerp = new cuerpo(400,2940);
+        scene->addItem(cuerp);
+        scene->setBackgroundBrush(Qt::black);
+
+        ui->graphicsView->centerOn(400,cuerp->y);
+        ui->graphicsView->setFixedSize(1400,600);
+
+
+        obstaculo .push_back(new dinamico(200,2600,45));
+        scene->addItem(obstaculo.back());
+        obstaculo .push_back(new dinamico(200,2600,135));
+        scene->addItem(obstaculo.back());
+        obstaculo .push_back(new dinamico(200,2600,225));
+        scene->addItem(obstaculo.back());
+
+        obstaculo .push_back(new dinamico(400,2200,45));
+        scene->addItem(obstaculo.back());
+        obstaculo .push_back(new dinamico(400,2200,135));
+        scene->addItem(obstaculo.back());
+        obstaculo .push_back(new dinamico(400,2200,225));
+        scene->addItem(obstaculo.back());
+
+        lineal.push_back(new dinamico(20,1850));
+        scene->addItem(lineal.back());
+        lineal.push_back(new dinamico(800,1950));
+        scene->addItem(lineal.back());
+
+        lineal.push_back(new dinamico(20,1320));
+        scene->addItem(lineal.back());
+        lineal.push_back(new dinamico(800,1480));
+        scene->addItem(lineal.back());
+
+        eneria.push_back(new estatico(400,2200,1));
+        scene->addItem(eneria.back());
+        eneria.push_back(new estatico(200,2600,1));
+        scene->addItem(eneria.back());
+        eneria.push_back(new estatico(350,1400,1));
+        scene->addItem(eneria.back());
+        eneria.push_back(new estatico(300,1400,2));
+        scene->addItem(eneria.back());
+        eneria.push_back(new estatico(300,1450,2));
+        scene->addItem(eneria.back());
+        eneria.push_back(new estatico(350,1450,2));
+        scene->addItem(eneria.back());
+        eneria.push_back(new estatico(400,1450,2));
+        scene->addItem(eneria.back());
+        eneria.push_back(new estatico(350,1450,2));
+        scene->addItem(eneria.back());
+        eneria.push_back(new estatico(400,1450,2));
+        scene->addItem(eneria.back());
+        eneria.push_back(new estatico(400,200,2));
+        scene->addItem(eneria.back());
+
+        timer = new QTimer(this);
+        connect(timer,SIGNAL(timeout()), this, SLOT(Actualizar()));
+
+        time = new QTimer(this);
+        connect(time,SIGNAL(timeout()), this, SLOT(Movobstaculo()));
+        time->start(150);
+
+        line = new QTimer(this);
+        connect(line,SIGNAL(timeout()), this, SLOT(Movilineal()));
+        line->start(70);
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
 
 void MainWindow::keyPressEvent(QKeyEvent *evento)
 {
-
     timer->start(30);
     if(evento->key() == Qt::Key_M ) direccion = "M";
     else if(evento->key() == Qt::Key_B) direccion = "B";
@@ -251,7 +259,7 @@ void MainWindow::Actualizar()
     cuerp->velocidades();
     cuerp->posiciones(direccion);
     vista();
-    if(cuerp->y>2970)
+    if(cuerp->y>2950)
          timer->stop();
 
 //    if(EvaluarColision1()){
@@ -305,7 +313,10 @@ void MainWindow::Movilineal()
 //        if((*i)->collidesWithItem(cuerp))
 //            return true;
 //    }
-//    return false;
+ //   return false;
 //}
+
+
+
 
 

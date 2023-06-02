@@ -33,7 +33,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(10010, 3060);
+        MainWindow->resize(10015, 3015);
         QPalette palette;
         QBrush brush(QColor(0, 0, 0, 255));
         brush.setStyle(Qt::SolidPattern);
@@ -47,18 +47,14 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         graphicsView = new QGraphicsView(centralwidget);
         graphicsView->setObjectName(QString::fromUtf8("graphicsView"));
-        graphicsView->setGeometry(QRect(0, 0, 10005, 3050));
+        graphicsView->setGeometry(QRect(0, 0, 1005, 3005));
         play = new QPushButton(centralwidget);
         play->setObjectName(QString::fromUtf8("play"));
-        play->setGeometry(QRect(330, 164, 141, 61));
-        QFont font;
-        font.setPointSize(21);
-        font.setBold(true);
-        play->setFont(font);
+        play->setGeometry(QRect(320, 130, 131, 51));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 10010, 22));
+        menubar->setGeometry(QRect(0, 0, 10015, 22));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -72,7 +68,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        play->setText(QCoreApplication::translate("MainWindow", "Play", nullptr));
+        play->setText(QCoreApplication::translate("MainWindow", "play", nullptr));
     } // retranslateUi
 
 };

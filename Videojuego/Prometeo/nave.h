@@ -5,13 +5,13 @@
 
 class Nave: public elemento
 {
-    QPixmap pixmap;
-    //QTimer *timer;
+    QPixmap *pixmap;
 
 public:
     Nave();
     QRectF boundingRect() const ;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
+    void destruir();
 };
 
 #endif // NAVE_H

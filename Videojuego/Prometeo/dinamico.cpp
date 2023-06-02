@@ -40,11 +40,11 @@ void dinamico::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     QPixmap pixmap;
 
     if (tipomov == 1){
-    pixmap.load(":/obs.png");
+    pixmap.load(":/Imagenes/obs.png");
     painter->drawPixmap(boundingRect(),pixmap,pixmap.rect());}
 
     if(tipomov == 2){
-        pixmap.load(":/estatico.png");
+        pixmap.load(":/Imagenes/estatico.png");
         painter->drawPixmap(boundingRect(),pixmap,pixmap.rect());
     }
 }

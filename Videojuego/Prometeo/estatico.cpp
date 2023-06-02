@@ -10,7 +10,7 @@ estatico::estatico(float _x, float _y,int _tipo)
         ancho = 83;
         alto = 75;
         timee = new QTimer();
-        pixmap = new QPixmap(":/eneria.png");
+        pixmap = new QPixmap(":/Imagenes/eneria.png");
         connect(timee,&QTimer::timeout,this,&estatico::Actualizacion);
         timee->start(100);
     }
@@ -18,7 +18,7 @@ estatico::estatico(float _x, float _y,int _tipo)
     if (tipo == 2){
         ancho = 30;
         alto = 29;
-        pixmap = new QPixmap(":/estatic.png");
+        pixmap = new QPixmap(":/Imagenes/estatic.png");
     }
 
     setPos(posx,posy);

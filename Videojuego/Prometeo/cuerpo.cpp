@@ -38,7 +38,7 @@ void cuerpo::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     //painter->drawEllipse(boundingRect());
     //painter->drawPixmap(-ancho/2,-alto/2,*pixmap,columnas,0,ancho,alto);
     QPixmap pixmap;
-    pixmap.load(":/cuerpo.png");
+    pixmap.load(":/Imagenes/cuerpo.png");
     painter->drawPixmap(boundingRect(),pixmap,pixmap.rect());
 }
 

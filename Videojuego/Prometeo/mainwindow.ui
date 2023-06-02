@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>10010</width>
-    <height>3060</height>
+    <width>10015</width>
+    <height>3015</height>
    </rect>
   </property>
   <property name="palette">
@@ -56,28 +56,22 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>10005</width>
-      <height>3050</height>
+      <width>1005</width>
+      <height>3005</height>
      </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="play">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>164</y>
-      <width>141</width>
-      <height>61</height>
+      <x>320</x>
+      <y>130</y>
+      <width>131</width>
+      <height>51</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <pointsize>21</pointsize>
-      <bold>true</bold>
-     </font>
-    </property>
     <property name="text">
-     <string>Play</string>
+     <string>play</string>
     </property>
    </widget>
   </widget>
@@ -86,7 +80,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>10010</width>
+     <width>10015</width>
      <height>22</height>
     </rect>
    </property>
