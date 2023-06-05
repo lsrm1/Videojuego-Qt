@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QLCDNumber>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -26,6 +27,7 @@ public:
     QWidget *centralwidget;
     QGraphicsView *graphicsView;
     QPushButton *play;
+    QLCDNumber *lcdNumber;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -50,8 +52,58 @@ public:
         graphicsView->setGeometry(QRect(0, 0, 1005, 3005));
         play = new QPushButton(centralwidget);
         play->setObjectName(QString::fromUtf8("play"));
-        play->setGeometry(QRect(320, 130, 131, 51));
+        play->setGeometry(QRect(790, 440, 181, 81));
+        QPalette palette1;
+        QBrush brush2(QColor(255, 255, 255, 255));
+        brush2.setStyle(Qt::SolidPattern);
+        palette1.setBrush(QPalette::Active, QPalette::WindowText, brush2);
+        QBrush brush3(QColor(1, 1, 13, 243));
+        brush3.setStyle(Qt::SolidPattern);
+        palette1.setBrush(QPalette::Active, QPalette::Button, brush3);
+        palette1.setBrush(QPalette::Active, QPalette::Text, brush2);
+        palette1.setBrush(QPalette::Active, QPalette::ButtonText, brush2);
+        QBrush brush4(QColor(0, 0, 0, 128));
+        brush4.setStyle(Qt::SolidPattern);
+        palette1.setBrush(QPalette::Active, QPalette::Base, brush4);
+        palette1.setBrush(QPalette::Active, QPalette::Window, brush4);
+        palette1.setBrush(QPalette::Active, QPalette::Shadow, brush4);
+        palette1.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
+        palette1.setBrush(QPalette::Inactive, QPalette::Button, brush1);
+        palette1.setBrush(QPalette::Inactive, QPalette::Text, brush);
+        palette1.setBrush(QPalette::Inactive, QPalette::ButtonText, brush);
+        palette1.setBrush(QPalette::Inactive, QPalette::Base, brush2);
+        palette1.setBrush(QPalette::Inactive, QPalette::Window, brush1);
+        QBrush brush5(QColor(118, 118, 118, 255));
+        brush5.setStyle(Qt::SolidPattern);
+        palette1.setBrush(QPalette::Inactive, QPalette::Shadow, brush5);
+        QBrush brush6(QColor(190, 190, 190, 255));
+        brush6.setStyle(Qt::SolidPattern);
+        palette1.setBrush(QPalette::Disabled, QPalette::WindowText, brush6);
+        palette1.setBrush(QPalette::Disabled, QPalette::Button, brush3);
+        palette1.setBrush(QPalette::Disabled, QPalette::Text, brush6);
+        palette1.setBrush(QPalette::Disabled, QPalette::ButtonText, brush6);
+        palette1.setBrush(QPalette::Disabled, QPalette::Base, brush4);
+        palette1.setBrush(QPalette::Disabled, QPalette::Window, brush4);
+        QBrush brush7(QColor(177, 177, 177, 255));
+        brush7.setStyle(Qt::SolidPattern);
+        palette1.setBrush(QPalette::Disabled, QPalette::Shadow, brush7);
+        play->setPalette(palette1);
+        QFont font;
+        font.setPointSize(37);
+        font.setBold(true);
+        play->setFont(font);
+        play->setCursor(QCursor(Qt::PointingHandCursor));
+        play->setAutoFillBackground(false);
+        lcdNumber = new QLCDNumber(centralwidget);
+        lcdNumber->setObjectName(QString::fromUtf8("lcdNumber"));
+        lcdNumber->setGeometry(QRect(30, 10, 141, 61));
+        QFont font1;
+        font1.setBold(true);
+        lcdNumber->setFont(font1);
         MainWindow->setCentralWidget(centralwidget);
+        graphicsView->raise();
+        lcdNumber->raise();
+        play->raise();
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
         menubar->setGeometry(QRect(0, 0, 10015, 22));
@@ -68,7 +120,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        play->setText(QCoreApplication::translate("MainWindow", "play", nullptr));
+        play->setText(QCoreApplication::translate("MainWindow", "Jugar", nullptr));
     } // retranslateUi
 
 };

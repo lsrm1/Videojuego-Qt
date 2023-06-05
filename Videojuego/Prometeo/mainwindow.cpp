@@ -10,10 +10,22 @@ MainWindow::MainWindow(QWidget *parent)
     inicio = new QGraphicsScene();
     inicio->setSceneRect(0,0,796,792);
     QPixmap inifondo;
+    ui->graphicsView->setFixedSize(800,800);
     inifondo.load(":/Imagenes/inicio.png");
     inicio->setBackgroundBrush(QBrush(inifondo));
     ui->graphicsView->setScene(inicio);
 
+    ui->lcdNumber->setVisible(false);
+
+
+    reinicio = new QTimer();
+    connect(reinicio,SIGNAL(timeout()),this,SLOT(jugar()));
+
+    reinicio2 = new QTimer();
+    connect(reinicio2,SIGNAL(timeout()),this,SLOT(agujero()));
+
+    choque = false;
+    choque2 = false;
 }
 
 void MainWindow::on_play_clicked()
@@ -24,6 +36,25 @@ void MainWindow::on_play_clicked()
 
 
 void MainWindow::jugar(){
+
+    if(choque){
+
+        choque = false;
+        reinicio->stop();
+        timeanima->stop();
+        timeghost->stop();
+        escena->removeItem(navex);
+        delete navex;
+        delete timeanima;
+        delete timeghost;
+
+        for (int t = 0; t < Cometas.size(); t++)
+               escena->removeItem(Cometas[t]);
+
+        Cometas.clear();
+        delete escena;
+
+    }
 
     escena = new QGraphicsScene();
     ui->graphicsView->setScene(escena);
@@ -61,10 +92,12 @@ void MainWindow::movimiento()
     navex->posx = navex->posx+navex->velocidad;
     navex->setPos(navex->posx,navex->posy);
 
-//    if(Colisioncometa()){
-//        navex->destruir();
-//        timeanima->stop();
-//    }
+    if(Colisioncometa()){
+        navex->destruir();
+        choque = true;
+        reinicio->start(2000);
+
+    }
 
     if (navex->posx>9350){
 
@@ -136,6 +169,39 @@ void MainWindow::Movcometa()
 
 void MainWindow::agujero()
 {
+    if(choque2){
+
+        choque2 = false;
+        reinicio2->stop();
+
+        scene->removeItem(cuerp);
+        delete cuerp;
+        delete timer;
+        delete time;
+        delete line;
+
+
+        for (int t = 0; t < obstaculo.size(); t++)
+               scene->removeItem(obstaculo[t]);
+
+        for (int t = 0; t < lineal.size(); t++)
+               scene->removeItem(lineal[t]);
+
+        for (int t = 0; t < eneria.size(); t++)
+               scene->removeItem(eneria[t]);
+
+        for (int t = 0; t < tesse.size(); t++)
+               scene->removeItem(tesse[t]);
+
+        obstaculo.clear();
+        lineal.clear();
+        eneria.clear();
+        tesse.clear();
+
+        delete scene;
+
+    }
+
 
         scene = new QGraphicsScene;
         ui->graphicsView->setScene(scene);
@@ -175,12 +241,14 @@ void MainWindow::agujero()
         lineal.push_back(new dinamico(800,1480));
         scene->addItem(lineal.back());
 
-        eneria.push_back(new estatico(400,2200,1));
-        scene->addItem(eneria.back());
-        eneria.push_back(new estatico(200,2600,1));
-        scene->addItem(eneria.back());
-        eneria.push_back(new estatico(350,1400,1));
-        scene->addItem(eneria.back());
+        tesse.push_back(new estatico(400,2200,1));
+        scene->addItem(tesse.back());
+        tesse.push_back(new estatico(200,2600,1));
+        scene->addItem(tesse.back());
+        tesse.push_back(new estatico(350,1400,1));
+        scene->addItem(tesse.back());
+
+
         eneria.push_back(new estatico(300,1400,2));
         scene->addItem(eneria.back());
         eneria.push_back(new estatico(300,1450,2));
@@ -196,6 +264,8 @@ void MainWindow::agujero()
         eneria.push_back(new estatico(400,200,2));
         scene->addItem(eneria.back());
 
+
+
         timer = new QTimer(this);
         connect(timer,SIGNAL(timeout()), this, SLOT(Actualizar()));
 
@@ -206,6 +276,10 @@ void MainWindow::agujero()
         line = new QTimer(this);
         connect(line,SIGNAL(timeout()), this, SLOT(Movilineal()));
         line->start(70);
+
+        ui->lcdNumber->setVisible(true);
+        tesses = tesse.size();
+        ui->lcdNumber->display(tesses);
 }
 
 MainWindow::~MainWindow()
@@ -259,23 +333,59 @@ void MainWindow::Actualizar()
     cuerp->velocidades();
     cuerp->posiciones(direccion);
     vista();
+
     if(cuerp->y>2950)
          timer->stop();
 
-//    if(EvaluarColision1()){
-//        timer->stop();
-//        time->stop();
-//        line->stop();
-//    }
+    if (EvaluarColision1()) {
+        choque2 = true;
+        timer->stop();
+        time->stop();
+        line->stop();
+        reinicio2->start(2000);
+    }
 
-//    if(EvaluarColision2()){
-//        timer->stop();
-//        time->stop();
-//        line->stop();
-//    }
+    if (EvaluarColision2()) {
+        choque2 = true;
+        timer->stop();
+        time->stop();
+        line->stop();
+        reinicio2->start(2000);
+    }
+
+    if (EvaluarColision3()) {
+        choque2 = true;
+        timer->stop();
+        time->stop();
+        line->stop();
+        reinicio2->start(2000);
+    }
+
+    if (EvaluarColision4()) {
+
+        tesses = tesse.size();
+        ui->lcdNumber->display(tesses);
+
+    }
+
+    if(cuerp->y<200){
+
+       if (tesse.size() == 0){
+
+            QMessageBox::critical(this,"Aviso","Misión completa!!");
+            timer->stop();
+            time->stop();
+            line->stop();
+
+        }
+
+
+
+    }
+
+
 
 }
-
 void MainWindow::Movobstaculo()
 {
     QList<dinamico*>::iterator it;
@@ -293,30 +403,51 @@ void MainWindow::Movilineal()
 
 }
 
+bool MainWindow::EvaluarColision1(){
+    QList<dinamico*>::iterator it;
 
+    for ( it = obstaculo.begin(); it != obstaculo.end(); it++)  {
+        if((*it)->collidesWithItem(cuerp))
+            return true;
 
-//bool MainWindow::EvaluarColision1(){
-//    QList<dinamico*>::iterator it;
+    }
+    return false;
+}
 
-//    for ( it = obstaculo.begin(); it != obstaculo.end(); it++)  {
-//        if((*it)->collidesWithItem(cuerp))
-//            return true;
+bool MainWindow::EvaluarColision2()
+{
+    QList<dinamico*>::iterator i;
+    for ( i = lineal.begin(); i != lineal.end(); i++){
+        if((*i)->collidesWithItem(cuerp))
+            return true;
+    }
+    return false;
+}
 
-//    }
-//    return false;
-//}
+bool MainWindow::EvaluarColision3()
+{
+    QList<estatico*>::iterator h;
+    for ( h = eneria.begin(); h != eneria.end(); h++){
+        if((*h)->collidesWithItem(cuerp))
+            return true;
+    }
+    return false;
+}
 
-//bool MainWindow::EvaluarColision2()
-//{
-//    QList<dinamico*>::iterator i;
-//    for ( i = lineal.begin(); i != lineal.end(); i++){
-//        if((*i)->collidesWithItem(cuerp))
-//            return true;
-//    }
- //   return false;
-//}
+bool MainWindow::EvaluarColision4()
+{
 
+    for (int in = 0 ; in < tesse.size();in++) {
 
+           if(cuerp->collidesWithItem(tesse.at(in))){
+
+               scene->removeItem(tesse.at(in));
+               tesse.removeAt(in);
+                return true;
+        }
+    }
+    return false;
+}
 
 
 

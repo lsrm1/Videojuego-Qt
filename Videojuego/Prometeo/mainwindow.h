@@ -9,6 +9,7 @@
 #include <QMouseEvent>
 #include <QList>
 #include <fstream>
+#include <QMessageBox>
 #include "nave.h"
 #include "cometa.h"
 #include "cuerpo.h"
@@ -38,6 +39,8 @@ public slots:
     void Actualizar();
     void Movobstaculo();
     void Movilineal();
+    void jugar();
+    void agujero();
 
 
 private slots:
@@ -59,12 +62,16 @@ private:
     QTimer *line;
     QTimer *timeanima;
     QTimer *timeghost;
+    QTimer *reinicio;
+    QTimer *reinicio2;
 
 
     QString direccion;
+    int tesses;
 
     QList<Cometa*>Cometas;
     QList<estatico*> eneria;
+    QList<estatico*> tesse;
     QList<dinamico*> obstaculo;
     QList<dinamico*> lineal;
 
@@ -72,13 +79,18 @@ private:
     float nuy;
 
     bool Colisioncometa();
-    void agujero();
-    void jugar();
+
+    bool choque;
+    bool choque2;
+
+
 
     void mouseMoveEvent(QMouseEvent *event);    
     void keyPressEvent(QKeyEvent *evento);
     bool EvaluarColision1();
     bool EvaluarColision2();
+    bool EvaluarColision3();
+    bool EvaluarColision4();
     void vista ();
     void Crearcometas();
 
