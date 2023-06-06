@@ -11,5 +11,7 @@
         <file>Imagenes/eneria.png</file>
         <file>Imagenes/cuerpo.png</file>
         <file>Imagenes/colision.png</file>
+        <file>Imagenes/explota.png</file>
+        <file>Imagenes/exit.jpg</file>
     </qresource>
 </RCC>

@@ -19,15 +19,9 @@ public:
     float ancho,alto;
     float filas,columnas;
 
-    //QTimer *timer;
-    //QPixmap *pixmap;
-
-//public slots:
-    //void Actualizacion();
-
+    QPixmap *pixmap2;
 
 public:
-    cuerpo(QObject *parent = nullptr);
     cuerpo(float _x, float _y);
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -39,6 +33,7 @@ public:
     // Funciones mvto
     void velocidades();
     void posiciones(QString direccion);
+    void destruir();
 };
 
 #endif // CUERPO_H

@@ -64,10 +64,10 @@
    <widget class="QPushButton" name="play">
     <property name="geometry">
      <rect>
-      <x>790</x>
-      <y>440</y>
-      <width>181</width>
-      <height>81</height>
+      <x>710</x>
+      <y>330</y>
+      <width>161</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="palette">
@@ -84,10 +84,10 @@
        </colorrole>
        <colorrole role="Button">
         <brush brushstyle="SolidPattern">
-         <color alpha="243">
-          <red>1</red>
-          <green>1</green>
-          <blue>13</blue>
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
          </color>
         </brush>
        </colorrole>
@@ -111,7 +111,7 @@
        </colorrole>
        <colorrole role="Base">
         <brush brushstyle="SolidPattern">
-         <color alpha="128">
+         <color alpha="255">
           <red>0</red>
           <green>0</green>
           <blue>0</blue>
@@ -120,7 +120,7 @@
        </colorrole>
        <colorrole role="Window">
         <brush brushstyle="SolidPattern">
-         <color alpha="128">
+         <color alpha="255">
           <red>0</red>
           <green>0</green>
           <blue>0</blue>
@@ -129,7 +129,7 @@
        </colorrole>
        <colorrole role="Shadow">
         <brush brushstyle="SolidPattern">
-         <color alpha="128">
+         <color alpha="255">
           <red>0</red>
           <green>0</green>
           <blue>0</blue>
@@ -214,10 +214,10 @@
        </colorrole>
        <colorrole role="Button">
         <brush brushstyle="SolidPattern">
-         <color alpha="243">
-          <red>1</red>
-          <green>1</green>
-          <blue>13</blue>
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
          </color>
         </brush>
        </colorrole>
@@ -241,7 +241,7 @@
        </colorrole>
        <colorrole role="Base">
         <brush brushstyle="SolidPattern">
-         <color alpha="128">
+         <color alpha="255">
           <red>0</red>
           <green>0</green>
           <blue>0</blue>
@@ -250,7 +250,7 @@
        </colorrole>
        <colorrole role="Window">
         <brush brushstyle="SolidPattern">
-         <color alpha="128">
+         <color alpha="255">
           <red>0</red>
           <green>0</green>
           <blue>0</blue>

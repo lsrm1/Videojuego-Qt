@@ -15,6 +15,7 @@
 #include "cuerpo.h"
 #include "dinamico.h"
 #include "estatico.h"
+#include "astro.h"
 
 using namespace std;
 
@@ -64,6 +65,7 @@ private:
     QTimer *timeghost;
     QTimer *reinicio;
     QTimer *reinicio2;
+    estatico *exit;
 
 
     QString direccion;

@@ -21,6 +21,15 @@ estatico::estatico(float _x, float _y,int _tipo)
         pixmap = new QPixmap(":/Imagenes/estatic.png");
     }
 
+    if (tipo == 3){
+        ancho = 250;
+        alto = 214;
+        pixmap = new QPixmap(":/Imagenes/exit.jpg");
+        timee = new QTimer();
+        connect(timee,&QTimer::timeout,this,&estatico::Actualizacion);
+        timee->start(100);
+    }
+
     setPos(posx,posy);
 
 }
@@ -41,13 +50,17 @@ void estatico::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
         painter->drawPixmap(boundingRect(),*pixmap,pixmap->rect());
     }
 
+    if(tipo == 3){
+        painter->drawPixmap(-ancho/2,-alto/2,*pixmap,columna,0,ancho,alto);
+    }
+
 }
 
 void estatico::Actualizacion()
 {
     columna += ancho;
 
-    if(columna >= 410)
+    if(columna >= ancho*4)
         columna = 0;
 
     this->update(-ancho/2,-alto/2,ancho,alto);

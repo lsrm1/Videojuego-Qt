@@ -1,11 +1,5 @@
 #include "cuerpo.h"
 
-cuerpo::cuerpo(QObject *parent)
-{
-
-
-}
-
 cuerpo::cuerpo(float _x, float _y)
 {
     x = _x;
@@ -16,15 +10,12 @@ cuerpo::cuerpo(float _x, float _y)
     ay = GRAV;
     radio = 10;
     setPos(x,y);
+    pixmap2 = new QPixmap;
+    pixmap2->load(":/Imagenes/cuerpo.png");
 
     ancho = 40;
     alto = 40;
-    //timer = new QTimer(this);
-    //filas = 0;
-    //columnas = 0;
-    //pixmap = new QPixmap(":/cuerpo.png");
-    //connect(timer,&QTimer::timeout,this,&cuerpo::Actualizacion);
-    //timer->start(300);
+
 }
 
 QRectF cuerpo::boundingRect() const
@@ -34,12 +25,7 @@ QRectF cuerpo::boundingRect() const
 
 void cuerpo::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    //painter->setBrush(Qt::darkGreen);
-    //painter->drawEllipse(boundingRect());
-    //painter->drawPixmap(-ancho/2,-alto/2,*pixmap,columnas,0,ancho,alto);
-    QPixmap pixmap;
-    pixmap.load(":/Imagenes/cuerpo.png");
-    painter->drawPixmap(boundingRect(),pixmap,pixmap.rect());
+    painter->drawPixmap(boundingRect(),*pixmap2,pixmap2->rect());
 }
 
 
@@ -72,3 +58,11 @@ void cuerpo::posiciones(QString direccion)
     setPos(x,y);
 
 }
+
+void cuerpo::destruir()
+{
+    ancho = 110;
+    alto = 116;
+    pixmap2->load(":/Imagenes/explota.png");
+}
+

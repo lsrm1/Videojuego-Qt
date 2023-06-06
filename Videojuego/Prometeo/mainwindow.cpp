@@ -12,11 +12,11 @@ MainWindow::MainWindow(QWidget *parent)
     QPixmap inifondo;
     ui->graphicsView->setFixedSize(800,800);
     inifondo.load(":/Imagenes/inicio.png");
+
     inicio->setBackgroundBrush(QBrush(inifondo));
     ui->graphicsView->setScene(inicio);
 
     ui->lcdNumber->setVisible(false);
-
 
     reinicio = new QTimer();
     connect(reinicio,SIGNAL(timeout()),this,SLOT(jugar()));
@@ -175,10 +175,13 @@ void MainWindow::agujero()
         reinicio2->stop();
 
         scene->removeItem(cuerp);
+        scene->removeItem(exit);
         delete cuerp;
         delete timer;
         delete time;
         delete line;
+        delete exit;
+
 
 
         for (int t = 0; t < obstaculo.size(); t++)
@@ -231,6 +234,21 @@ void MainWindow::agujero()
         obstaculo .push_back(new dinamico(400,2200,225));
         scene->addItem(obstaculo.back());
 
+        obstaculo .push_back(new dinamico(100,850,45));
+        scene->addItem(obstaculo.back());
+        obstaculo .push_back(new dinamico(100,850,135));
+        scene->addItem(obstaculo.back());
+        obstaculo .push_back(new dinamico(100,850,225));
+        scene->addItem(obstaculo.back());
+
+        obstaculo .push_back(new dinamico(700,850,45));
+        scene->addItem(obstaculo.back());
+        obstaculo .push_back(new dinamico(700,850,135));
+        scene->addItem(obstaculo.back());
+        obstaculo .push_back(new dinamico(700,850,225));
+        scene->addItem(obstaculo.back());
+
+
         lineal.push_back(new dinamico(20,1850));
         scene->addItem(lineal.back());
         lineal.push_back(new dinamico(800,1950));
@@ -238,33 +256,60 @@ void MainWindow::agujero()
 
         lineal.push_back(new dinamico(20,1320));
         scene->addItem(lineal.back());
-        lineal.push_back(new dinamico(800,1480));
+        lineal.push_back(new dinamico(800,1740));
         scene->addItem(lineal.back());
 
         tesse.push_back(new estatico(400,2200,1));
         scene->addItem(tesse.back());
         tesse.push_back(new estatico(200,2600,1));
         scene->addItem(tesse.back());
-        tesse.push_back(new estatico(350,1400,1));
+        tesse.push_back(new estatico(300,1500,1));
+        scene->addItem(tesse.back());
+        tesse.push_back(new estatico(100,850,1));
+        scene->addItem(tesse.back());
+        tesse.push_back(new estatico(700,850,1));
         scene->addItem(tesse.back());
 
 
-        eneria.push_back(new estatico(300,1400,2));
+        eneria.push_back(new estatico(200,1400,2));
         scene->addItem(eneria.back());
-        eneria.push_back(new estatico(300,1450,2));
+        eneria.push_back(new estatico(200,1450,2));
         scene->addItem(eneria.back());
-        eneria.push_back(new estatico(350,1450,2));
+        eneria.push_back(new estatico(200,1500,2));
+        scene->addItem(eneria.back());
+        eneria.push_back(new estatico(200,1550,2));
+        scene->addItem(eneria.back());
+        eneria.push_back(new estatico(200,1600,2));
+        scene->addItem(eneria.back());
+        eneria.push_back(new estatico(400,1400,2));
         scene->addItem(eneria.back());
         eneria.push_back(new estatico(400,1450,2));
         scene->addItem(eneria.back());
-        eneria.push_back(new estatico(350,1450,2));
+        eneria.push_back(new estatico(400,1500,2));
         scene->addItem(eneria.back());
-        eneria.push_back(new estatico(400,1450,2));
+        eneria.push_back(new estatico(400,1550,2));
         scene->addItem(eneria.back());
-        eneria.push_back(new estatico(400,200,2));
+        eneria.push_back(new estatico(400,1600,2));
+        scene->addItem(eneria.back());     
+        eneria.push_back(new estatico(400,700,2));
+        scene->addItem(eneria.back());
+        eneria.push_back(new estatico(400,750,2));
+        scene->addItem(eneria.back());
+        eneria.push_back(new estatico(400,800,2));
+        scene->addItem(eneria.back());
+        eneria.push_back(new estatico(400,850,2));
+        scene->addItem(eneria.back());
+        eneria.push_back(new estatico(400,900,2));
+        scene->addItem(eneria.back());
+        eneria.push_back(new estatico(400,950,2));
+        scene->addItem(eneria.back());
+        eneria.push_back(new estatico(400,1000,2));
+        scene->addItem(eneria.back());
+        eneria.push_back(new estatico(400,1050,2));
         scene->addItem(eneria.back());
 
-
+        exit = new estatico(400,200,3);
+        scene->addItem(exit);
 
         timer = new QTimer(this);
         connect(timer,SIGNAL(timeout()), this, SLOT(Actualizar()));
@@ -339,6 +384,7 @@ void MainWindow::Actualizar()
 
     if (EvaluarColision1()) {
         choque2 = true;
+        cuerp->destruir();
         timer->stop();
         time->stop();
         line->stop();
@@ -347,6 +393,7 @@ void MainWindow::Actualizar()
 
     if (EvaluarColision2()) {
         choque2 = true;
+        cuerp->destruir();
         timer->stop();
         time->stop();
         line->stop();
@@ -355,6 +402,7 @@ void MainWindow::Actualizar()
 
     if (EvaluarColision3()) {
         choque2 = true;
+        cuerp->destruir();
         timer->stop();
         time->stop();
         line->stop();
@@ -368,7 +416,7 @@ void MainWindow::Actualizar()
 
     }
 
-    if(cuerp->y<200){
+    if(cuerp->collidesWithItem(exit)){
 
        if (tesse.size() == 0){
 
@@ -379,11 +427,7 @@ void MainWindow::Actualizar()
 
         }
 
-
-
     }
-
-
 
 }
 void MainWindow::Movobstaculo()
