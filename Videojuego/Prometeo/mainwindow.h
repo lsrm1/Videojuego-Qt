@@ -2,20 +2,20 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMessageBox>
 #include <QGraphicsScene>
 #include <QKeyEvent>
-#include <QTimer>
-#include <QPixmap>
 #include <QMouseEvent>
+#include <QPixmap>
+#include <QTimer>
 #include <QList>
 #include <fstream>
-#include <QMessageBox>
+
 #include "nave.h"
 #include "cometa.h"
 #include "cuerpo.h"
 #include "dinamico.h"
 #include "estatico.h"
-#include "astro.h"
 
 using namespace std;
 
@@ -30,6 +30,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
 
 
 
@@ -65,11 +66,10 @@ private:
     QTimer *timeghost;
     QTimer *reinicio;
     QTimer *reinicio2;
+
     estatico *exit;
 
-
     QString direccion;
-    int tesses;
 
     QList<Cometa*>Cometas;
     QList<estatico*> eneria;
@@ -79,13 +79,9 @@ private:
 
     float nux;
     float nuy;
-
-    bool Colisioncometa();
-
+    int tesses;
     bool choque;
     bool choque2;
-
-
 
     void mouseMoveEvent(QMouseEvent *event);    
     void keyPressEvent(QKeyEvent *evento);
@@ -93,8 +89,10 @@ private:
     bool EvaluarColision2();
     bool EvaluarColision3();
     bool EvaluarColision4();
-    void vista ();
+    bool Colisioncometa();
     void Crearcometas();
+    void Crearobs();
+    void vista ();
 
 
 

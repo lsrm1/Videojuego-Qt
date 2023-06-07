@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     inicio = new QGraphicsScene();
-    inicio->setSceneRect(0,0,796,792);
+    inicio->setSceneRect(0,0,796,792); // Primera escena
     QPixmap inifondo;
     ui->graphicsView->setFixedSize(800,800);
     inifondo.load(":/Imagenes/inicio.png");
@@ -56,7 +56,7 @@ void MainWindow::jugar(){
 
     }
 
-    escena = new QGraphicsScene();
+    escena = new QGraphicsScene(); // Segunda escena
     ui->graphicsView->setScene(escena);
     escena->setSceneRect(0,0,10000,700);
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -95,7 +95,7 @@ void MainWindow::movimiento()
     if(Colisioncometa()){
         navex->destruir();
         choque = true;
-        reinicio->start(2000);
+        reinicio->start(1000);
 
     }
 
@@ -220,34 +220,7 @@ void MainWindow::agujero()
         ui->graphicsView->setFixedSize(1400,600);
 
 
-        obstaculo .push_back(new dinamico(200,2600,45));
-        scene->addItem(obstaculo.back());
-        obstaculo .push_back(new dinamico(200,2600,135));
-        scene->addItem(obstaculo.back());
-        obstaculo .push_back(new dinamico(200,2600,225));
-        scene->addItem(obstaculo.back());
-
-        obstaculo .push_back(new dinamico(400,2200,45));
-        scene->addItem(obstaculo.back());
-        obstaculo .push_back(new dinamico(400,2200,135));
-        scene->addItem(obstaculo.back());
-        obstaculo .push_back(new dinamico(400,2200,225));
-        scene->addItem(obstaculo.back());
-
-        obstaculo .push_back(new dinamico(100,850,45));
-        scene->addItem(obstaculo.back());
-        obstaculo .push_back(new dinamico(100,850,135));
-        scene->addItem(obstaculo.back());
-        obstaculo .push_back(new dinamico(100,850,225));
-        scene->addItem(obstaculo.back());
-
-        obstaculo .push_back(new dinamico(700,850,45));
-        scene->addItem(obstaculo.back());
-        obstaculo .push_back(new dinamico(700,850,135));
-        scene->addItem(obstaculo.back());
-        obstaculo .push_back(new dinamico(700,850,225));
-        scene->addItem(obstaculo.back());
-
+        Crearobs();
 
         lineal.push_back(new dinamico(20,1850));
         scene->addItem(lineal.back());
@@ -269,44 +242,6 @@ void MainWindow::agujero()
         scene->addItem(tesse.back());
         tesse.push_back(new estatico(700,850,1));
         scene->addItem(tesse.back());
-
-
-        eneria.push_back(new estatico(200,1400,2));
-        scene->addItem(eneria.back());
-        eneria.push_back(new estatico(200,1450,2));
-        scene->addItem(eneria.back());
-        eneria.push_back(new estatico(200,1500,2));
-        scene->addItem(eneria.back());
-        eneria.push_back(new estatico(200,1550,2));
-        scene->addItem(eneria.back());
-        eneria.push_back(new estatico(200,1600,2));
-        scene->addItem(eneria.back());
-        eneria.push_back(new estatico(400,1400,2));
-        scene->addItem(eneria.back());
-        eneria.push_back(new estatico(400,1450,2));
-        scene->addItem(eneria.back());
-        eneria.push_back(new estatico(400,1500,2));
-        scene->addItem(eneria.back());
-        eneria.push_back(new estatico(400,1550,2));
-        scene->addItem(eneria.back());
-        eneria.push_back(new estatico(400,1600,2));
-        scene->addItem(eneria.back());     
-        eneria.push_back(new estatico(400,700,2));
-        scene->addItem(eneria.back());
-        eneria.push_back(new estatico(400,750,2));
-        scene->addItem(eneria.back());
-        eneria.push_back(new estatico(400,800,2));
-        scene->addItem(eneria.back());
-        eneria.push_back(new estatico(400,850,2));
-        scene->addItem(eneria.back());
-        eneria.push_back(new estatico(400,900,2));
-        scene->addItem(eneria.back());
-        eneria.push_back(new estatico(400,950,2));
-        scene->addItem(eneria.back());
-        eneria.push_back(new estatico(400,1000,2));
-        scene->addItem(eneria.back());
-        eneria.push_back(new estatico(400,1050,2));
-        scene->addItem(eneria.back());
 
         exit = new estatico(400,200,3);
         scene->addItem(exit);
@@ -388,7 +323,7 @@ void MainWindow::Actualizar()
         timer->stop();
         time->stop();
         line->stop();
-        reinicio2->start(2000);
+        reinicio2->start(1000);
     }
 
     if (EvaluarColision2()) {
@@ -397,7 +332,7 @@ void MainWindow::Actualizar()
         timer->stop();
         time->stop();
         line->stop();
-        reinicio2->start(2000);
+        reinicio2->start(1000);
     }
 
     if (EvaluarColision3()) {
@@ -406,7 +341,7 @@ void MainWindow::Actualizar()
         timer->stop();
         time->stop();
         line->stop();
-        reinicio2->start(2000);
+        reinicio2->start(1000);
     }
 
     if (EvaluarColision4()) {
@@ -491,6 +426,38 @@ bool MainWindow::EvaluarColision4()
         }
     }
     return false;
+}
+
+void MainWindow::Crearobs() // Recibe un txt con posiciones
+{
+    ifstream obst;
+    int x, y,z;
+    obst.open("estatico.txt");
+
+    while (obst.good()){
+
+        obst >> x;
+        obst >> y;
+        obst >> z;
+
+        eneria.push_back(new estatico(x,y,z));
+        scene->addItem(eneria.back());
+    }
+    obst.close();
+
+    ifstream obstac;
+    obstac.open("obstaculo.txt");
+
+    while (obstac.good()){
+
+        obstac >> x;
+        obstac >> y;
+        obstac >> z;
+
+        obstaculo.push_back(new dinamico(x,y,z));
+        scene->addItem(obstaculo.back());
+    }
+    obstac.close();
 }
 
 
